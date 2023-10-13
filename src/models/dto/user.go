@@ -1,22 +1,31 @@
 package dto
 
-import "github.com/SerafimKuzmin/sd/src/models"
+import (
+	"github.com/SerafimKuzmin/sd/src/models"
+	"time"
+)
 
 type ReqUpdateUser struct {
-	Name     string `json:"name"`
-	Email    string `json:"email"`
-	About    string `json:"about"`
-	Role     string `json:"role"`
-	Password string `json:"password"`
+	Login     string    `json:"login"`
+	Password  string    `json:"password"`
+	Role      int       `json:"role_id"`
+	Email     string    `json:"email"`
+	FullName  string    `json:"full_name"`
+	IsActive  bool      `json:"is_active"`
+	CreateDT  time.Time `json:"create_dt"`
+	CountryID *uint64   `json:"country_id"`
 }
 
 func (req *ReqUpdateUser) ToModelUser() *models.User {
 	return &models.User{
-		Name:     req.Name,
-		Email:    req.Email,
-		About:    req.About,
-		Role:     req.Role,
-		Password: req.Password,
+		Login:     req.Login,
+		Password:  req.Password,
+		Role:      req.Role,
+		Email:     req.Email,
+		FullName:  req.FullName,
+		IsActive:  req.IsActive,
+		CreateDT:  req.CreateDT,
+		CountryID: req.CountryID,
 	}
 }
 

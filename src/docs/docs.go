@@ -662,7 +662,7 @@ const docTemplate = `{
                 "parameters": [
                     {
                         "type": "integer",
-                        "description": "Goal ID",
+                        "description": "Film ID",
                         "name": "id",
                         "in": "path",
                         "required": true
@@ -719,7 +719,7 @@ const docTemplate = `{
                 "parameters": [
                     {
                         "type": "integer",
-                        "description": "Goal ID",
+                        "description": "Film ID",
                         "name": "id",
                         "in": "path",
                         "required": true
@@ -1490,7 +1490,7 @@ const docTemplate = `{
                 "parameters": [
                     {
                         "type": "integer",
-                        "description": "Project ID",
+                        "description": "Person ID",
                         "name": "id",
                         "in": "path",
                         "required": true
@@ -1547,7 +1547,7 @@ const docTemplate = `{
                 "parameters": [
                     {
                         "type": "integer",
-                        "description": "Project ID",
+                        "description": "Person ID",
                         "name": "id",
                         "in": "path",
                         "required": true
@@ -1916,7 +1916,7 @@ const docTemplate = `{
                 "parameters": [
                     {
                         "type": "integer",
-                        "description": "Tag ID",
+                        "description": "PersonalRating ID",
                         "name": "id",
                         "in": "path",
                         "required": true
@@ -1973,7 +1973,7 @@ const docTemplate = `{
                 "parameters": [
                     {
                         "type": "integer",
-                        "description": "Tag ID",
+                        "description": "PersonalRating ID",
                         "name": "id",
                         "in": "path",
                         "required": true
@@ -2474,7 +2474,7 @@ const docTemplate = `{
                 "tag_list": {
                     "type": "array",
                     "items": {
-                        "$ref": "#/definitions/models.Tag"
+                        "$ref": "#/definitions/models.PersonalRating"
                     }
                 },
                 "time_end": {
@@ -2586,7 +2586,7 @@ const docTemplate = `{
                 "message": {}
             }
         },
-        "models.Tag": {
+        "models.PersonalRating": {
             "type": "object",
             "properties": {
                 "about": {

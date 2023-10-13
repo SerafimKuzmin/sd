@@ -1,7 +1,7 @@
 package middleware
 
 import (
-	friendUsecase "github.com/SerafimKuzmin/sd/src/internal/Friends/usecase"
+	friendUsecase "github.com/SerafimKuzmin/sd/src/internal/List/usecase"
 	echo "github.com/labstack/echo/v4"
 	"net/http"
 	"strconv"
@@ -20,7 +20,7 @@ func NewAclMiddleware(friendUC friendUsecase.UsecaseI) *AclMiddleware {
 func (am *AclMiddleware) AdminOnly(next echo.HandlerFunc) echo.HandlerFunc {
 	return func(c echo.Context) error {
 		user := c.Get("user").(*models.User)
-		if user.Role != models.Admin.String() {
+		if user.Role != 2 {
 			return echo.NewHTTPError(http.StatusForbidden, models.ErrPermissionDenied.Error())
 		}
 		return next(c)
@@ -69,7 +69,7 @@ func (am *AclMiddleware) FriendsOrAdminOnly(next echo.HandlerFunc) echo.HandlerF
 			return echo.NewHTTPError(http.StatusInternalServerError, models.ErrInternalServerError.Error())
 		}
 
-		if authUser.Role == models.Admin.String() {
+		if authUser.Role == 2 {
 			return next(c)
 		}
 

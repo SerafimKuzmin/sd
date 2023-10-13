@@ -2,6 +2,7 @@ package dto
 
 import (
 	"github.com/SerafimKuzmin/sd/src/models"
+	"time"
 )
 
 type ReqUserSignIn struct {
@@ -10,12 +11,14 @@ type ReqUserSignIn struct {
 }
 
 type ReqUserSignUp struct {
-	Name       string `json:"name" validate:"required"`
-	Email      string `json:"email" validate:"required"`
-	About      string `json:"about"`
-	Role       string `json:"role"`
-	Password   string `json:"password" validate:"required"`
-	AdminToken string `json:"admin_token"`
+	Login     string    `json:"login" validate:"required"`
+	Password  string    `json:"password" validate:"required"`
+	Role      int       `json:"role" validate:"required"`
+	Email     string    `json:"email" validate:"required"`
+	FullName  string    `json:"full_name"`
+	IsActive  bool      `json:"is_active"`
+	CreateDT  time.Time `json:"create_dt"`
+	CountryID *uint64   `json:"country_id"`
 }
 
 func (req *ReqUserSignIn) ToModelUser() *models.User {
@@ -26,43 +29,41 @@ func (req *ReqUserSignIn) ToModelUser() *models.User {
 }
 
 func (req *ReqUserSignUp) ToModelUser() *models.User {
-	if req.Role == "" {
-		req.Role = models.DefaultUser.String()
-	}
 
 	return &models.User{
-		Name:     req.Name,
-		Email:    req.Email,
-		About:    req.About,
-		Role:     req.Role,
-		Password: req.Password,
+		Login:     req.Login,
+		Password:  req.Password,
+		Role:      req.Role,
+		Email:     req.Email,
+		FullName:  req.FullName,
+		IsActive:  req.IsActive,
+		CreateDT:  req.CreateDT,
+		CountryID: req.CountryID,
 	}
 }
 
 type RespUser struct {
-	ID    uint64 `json:"id"`
-	Name  string `json:"name"`
-	Email string `json:"email"`
-	About string `json:"about"`
-	Role  string `json:"role"`
+	ID        uint64    `json:"id"`
+	Login     string    `json:"login"`
+	Password  string    `json:"password"`
+	Role      int       `json:"role_id"`
+	Email     string    `json:"email"`
+	FullName  string    `json:"full_name"`
+	IsActive  bool      `json:"is_active"`
+	CreateDT  time.Time `json:"create_dt"`
+	CountryID *uint64   `json:"country_id"`
 }
 
 func GetResponseFromModelUser(user *models.User) *RespUser {
 	return &RespUser{
-		ID:    user.ID,
-		Name:  user.Name,
-		Email: user.Email,
-		About: user.About,
-		Role:  user.Role,
+		ID:        user.ID,
+		Login:     user.Login,
+		Password:  user.Password,
+		Role:      user.Role,
+		Email:     user.Email,
+		FullName:  user.FullName,
+		IsActive:  user.IsActive,
+		CreateDT:  user.CreateDT,
+		CountryID: user.CountryID,
 	}
 }
-
-//
-//func GetResponseFromModelEntries(entries []*models.Entry) []*RespEntry {
-//	result := make([]*RespEntry, 0, 10)
-//	for _, entry := range entries {
-//		result = append(result, GetResponseFromModelEntry(entry))
-//	}
-//
-//	return result
-//}

@@ -4,18 +4,20 @@ import (
 	"fmt"
 	"github.com/SerafimKuzmin/sd/src/internal/User/repository"
 	"github.com/SerafimKuzmin/sd/src/models"
-
 	"github.com/pkg/errors"
 	"gorm.io/gorm"
+	"time"
 )
 
 type User struct {
-	ID       uint64 `gorm:"column:id"`
-	Name     string `gorm:"column:name"`
-	Email    string `gorm:"column:email"`
-	About    string `gorm:"column:about"`
-	Role     string `gorm:"column:role"`
-	Password string `gorm:"column:password"`
+	ID        uint64    `gorm:"column:id"`
+	Email     string    `gorm:"column:email"`
+	Login     string    `gorm:"column:username"`
+	Password  string    `gorm:"column:password"`
+	CreateDT  time.Time `gorm:"column:create_dt"`
+	CountryID *uint64   `json:"country_id"`
+	Role      int       `gorm:"column:role_id"`
+	FullName  string    `gorm:"full_name"`
 }
 
 func (User) TableName() string {
@@ -24,23 +26,27 @@ func (User) TableName() string {
 
 func toPostgresUser(u *models.User) *User {
 	return &User{
-		ID:       u.ID,
-		Name:     u.Name,
-		Email:    u.Email,
-		About:    u.About,
-		Role:     u.Role,
-		Password: u.Password,
+		ID:        u.ID,
+		Email:     u.Email,
+		Login:     u.Login,
+		Password:  u.Password,
+		CreateDT:  u.CreateDT,
+		CountryID: u.CountryID,
+		Role:      u.Role,
+		FullName:  u.FullName,
 	}
 }
 
 func toModelUser(u *User) *models.User {
 	return &models.User{
-		ID:       u.ID,
-		Name:     u.Name,
-		Email:    u.Email,
-		About:    u.About,
-		Role:     u.Role,
-		Password: u.Password,
+		ID:        u.ID,
+		Email:     u.Email,
+		Login:     u.Login,
+		Password:  u.Password,
+		CreateDT:  u.CreateDT,
+		CountryID: u.CountryID,
+		Role:      u.Role,
+		FullName:  u.FullName,
 	}
 }
 
@@ -97,21 +103,6 @@ func (ur userRepository) GetUser(id uint64) (*models.User, error) {
 	return toModelUser(&user), nil
 }
 
-func (ur userRepository) GetUserByEmail(email string) (*models.User, error) {
-	var user User
-	fmt.Println("email", email)
-
-	tx := ur.db.Where(&User{Email: email}).Take(&user)
-
-	if errors.Is(tx.Error, gorm.ErrRecordNotFound) {
-		return nil, models.ErrNotFound
-	} else if tx.Error != nil {
-		return nil, errors.Wrap(tx.Error, "database error (table user)")
-	}
-
-	return toModelUser(&user), nil
-}
-
 func (ur userRepository) GetUsers() ([]*models.User, error) {
 	users := make([]*User, 0, 10)
 	tx := ur.db.Omit("password").Find(&users)
@@ -132,6 +123,21 @@ func (ur userRepository) GetUsersByIDs(userIDs []uint64) ([]*models.User, error)
 	}
 
 	return toModelUsers(users), nil
+}
+
+func (ur userRepository) GetUserByEmail(email string) (*models.User, error) {
+	var user User
+	fmt.Println("email", email)
+
+	tx := ur.db.Where(&User{Email: email}).Take(&user)
+
+	if errors.Is(tx.Error, gorm.ErrRecordNotFound) {
+		return nil, models.ErrNotFound
+	} else if tx.Error != nil {
+		return nil, errors.Wrap(tx.Error, "database error (table user)")
+	}
+
+	return toModelUser(&user), nil
 }
 
 func NewUserRepository(db *gorm.DB) repository.RepositoryI {

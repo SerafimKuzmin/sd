@@ -3,9 +3,9 @@ package testintegration
 import (
 	entryRep "github.com/SerafimKuzmin/sd/src/internal/Entry/repository/postgres"
 	entryUsecase "github.com/SerafimKuzmin/sd/src/internal/Entry/usecase"
-	projectRep "github.com/SerafimKuzmin/sd/src/internal/Project/repository/postgres"
-	projectUsecase "github.com/SerafimKuzmin/sd/src/internal/Project/usecase"
-	tagRep "github.com/SerafimKuzmin/sd/src/internal/Tag/repository/postgres"
+	projectRep "github.com/SerafimKuzmin/sd/src/internal/Person/repository/postgres"
+	projectUsecase "github.com/SerafimKuzmin/sd/src/internal/Person/usecase"
+	tagRep "github.com/SerafimKuzmin/sd/src/internal/PersonalRating/repository/postgres"
 	"github.com/SerafimKuzmin/sd/src/models"
 	"log"
 	"testing"

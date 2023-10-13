@@ -46,12 +46,12 @@ func (del *Delivery) SignUp(c echo.Context) error {
 		return echo.NewHTTPError(http.StatusBadRequest, models.ErrBadRequest.Error())
 	}
 
-	if reqUser.Role == models.Admin.String() {
-		if reqUser.AdminToken != "secret_token" {
-			c.Logger().Error("invalid secret_token")
-			return echo.NewHTTPError(http.StatusBadRequest, "invalid secret_token")
-		}
-	}
+	//if reqUser.Role == models.Admin.String() {
+	//	if reqUser.AdminToken != "secret_token" {
+	//		c.Logger().Error("invalid secret_token")
+	//		return echo.NewHTTPError(http.StatusBadRequest, "invalid secret_token")
+	//	}
+	//}
 
 	user := reqUser.ToModelUser()
 	createdCookie, err := del.AuthUC.SignUp(user)

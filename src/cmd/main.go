@@ -2,7 +2,7 @@ package main
 
 import (
 	"flag"
-	"github.com/SerafimKuzmin/sd/src/cmd/time_tracker"
+	"github.com/SerafimKuzmin/sd/src/cmd/mini_imdb"
 	"log"
 
 	"github.com/BurntSushi/toml"
@@ -21,7 +21,7 @@ func init() {
 func main() {
 	flag.Parse()
 
-	timeTracker := time_tracker.TimeTracker{}
+	timeTracker := mini_imdb.MiniIMDB{}
 	_, err := toml.DecodeFile(configPath, &timeTracker)
 
 	if err != nil {

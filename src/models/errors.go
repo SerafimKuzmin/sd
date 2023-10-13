@@ -8,7 +8,7 @@ var (
 	ErrConflictNickname    = errors.New("nickname already exists")
 	ErrConflictEmail       = errors.New("email already exists")
 	ErrBadRequest          = errors.New("bad request")
-	ErrConflictFriend      = errors.New("friend already exists")
+	ErrConflictFilm        = errors.New("film already exists")
 	ErrUnauthorized        = errors.New("no cookie")
 	ErrInternalServerError = errors.New("internal server error")
 	ErrPermissionDenied    = errors.New("permission denied")

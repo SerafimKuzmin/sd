@@ -1,35 +1,15 @@
 package models
 
-import (
-	"time"
-)
-
-type RoleType int64
-
-const (
-	Admin RoleType = iota
-	Moderator
-	DefaultUser
-)
-
-func (s RoleType) String() string {
-	switch s {
-	case DefaultUser:
-		return "user"
-	case Admin:
-		return "admin"
-	}
-	return "unknown"
-}
+import "time"
 
 type User struct {
 	ID        uint64    `json:"id"`
-	Email     string    `json:"email"`
-	Name      string    `json:"username"`
+	Login     string    `json:"login"`
 	Password  string    `json:"password"`
-	BirthDate time.Time `json:"birth_date"`
-	Sex       bool      `json:"sex"`
+	Role      int       `json:"role_id"`
+	Email     string    `json:"email"`
+	FullName  string    `json:"full_name"`
+	IsActive  bool      `json:"is_active"`
+	CreateDT  time.Time `json:"create_dt"`
 	CountryID uint64    `json:"country_id"`
-	IsDeleted string    `json:"is_deleted"`
-	IsActive  string    `json:"is_active"`
 }

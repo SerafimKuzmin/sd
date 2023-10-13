@@ -532,7 +532,7 @@ paths:
       - application/json
       description: Delete a goal
       parameters:
-      - description: Goal ID
+      - description: Film ID
         in: path
         name: id
         required: true
@@ -568,7 +568,7 @@ paths:
       - application/json
       description: Get goal by id
       parameters:
-      - description: Goal ID
+      - description: Film ID
         in: path
         name: id
         required: true
@@ -1048,7 +1048,7 @@ paths:
       - application/json
       description: Delete an project
       parameters:
-      - description: Project ID
+      - description: Person ID
         in: path
         name: id
         required: true
@@ -1084,7 +1084,7 @@ paths:
       - application/json
       description: Get project by id
       parameters:
-      - description: Project ID
+      - description: Person ID
         in: path
         name: id
         required: true
@@ -1314,7 +1314,7 @@ paths:
       - application/json
       description: Delete an tag
       parameters:
-      - description: Tag ID
+      - description: PersonalRating ID
         in: path
         name: id
         required: true
@@ -1350,7 +1350,7 @@ paths:
       - application/json
       description: Get tag by id
       parameters:
-      - description: Tag ID
+      - description: PersonalRating ID
         in: path
         name: id
         required: true
