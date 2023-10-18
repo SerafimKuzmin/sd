@@ -9,3 +9,8 @@ type List struct {
 	Name     string    `json:"name"`
 	CreateDT time.Time `json:"create_dt"`
 }
+
+type ListFilm struct {
+	ID     uint64 `json:"id"`
+	FilmID uint64 `json:"film_id"`
+}

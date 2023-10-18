@@ -27,7 +27,6 @@ type List struct {
 }
 
 type UserListRelation struct {
-	ID     uint64 `gorm:"column:id"`
 	UserID uint64 `gorm:"column:user_id"`
 	ListID uint64 `gorm:"column:list_id"`
 }
@@ -72,7 +71,6 @@ func toModelFilm(t *Film) *models.Film {
 		Name:        t.Name,
 		Description: t.Description,
 		Rate:        t.Rate,
-		Genre:       t.Genre,
 		ReleaseDT:   t.ReleaseDT,
 		Duration:    t.Duration,
 	}

@@ -15,7 +15,7 @@ type User struct {
 	Login     string    `gorm:"column:username"`
 	Password  string    `gorm:"column:password"`
 	CreateDT  time.Time `gorm:"column:create_dt"`
-	CountryID *uint64   `json:"country_id"`
+	CountryID uint64    `json:"country_id"`
 	Role      int       `gorm:"column:role_id"`
 	FullName  string    `gorm:"full_name"`
 }

@@ -25,13 +25,13 @@ services:
     networks:
       - mynetwork
 
-  redis-cache:
-    image: redis:latest
-    command: --requirepass "ws_redis_password"
-    ports:
-      - "6380:6379"
-    networks:
-      - mynetwork
+#  redis-cache:
+#    image: redis:latest
+#    command: --requirepass "ws_redis_password"
+#    ports:
+#      - "6381:6381"
+#    networks:
+#      - mynetwork
   # app:
   #   build: .
   #   container_name: app

@@ -7,11 +7,11 @@ import (
 )
 
 type MongoDBFlags struct {
-	url string `toml:"url"`
+	URL string `toml:"url"`
 }
 
 func (f MongoDBFlags) Init() (*mongo.Database, error) {
-	client, err := mongo.Connect(context.TODO(), options.Client().ApplyURI(MongoDBFlags.url))
+	client, err := mongo.Connect(context.TODO(), options.Client().ApplyURI(f.URL))
 
 	err = client.Ping(context.TODO(), nil)
 
@@ -19,7 +19,7 @@ func (f MongoDBFlags) Init() (*mongo.Database, error) {
 		return nil, err
 	}
 
-	db, err = client.Database("recommend"), nil
+	db, err := client.Database("recommend"), nil
 
 	if err != nil {
 		return nil, err

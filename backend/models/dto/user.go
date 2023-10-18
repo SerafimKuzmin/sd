@@ -13,7 +13,7 @@ type ReqUpdateUser struct {
 	FullName  string    `json:"full_name"`
 	IsActive  bool      `json:"is_active"`
 	CreateDT  time.Time `json:"create_dt"`
-	CountryID *uint64   `json:"country_id"`
+	CountryID uint64    `json:"country_id"`
 }
 
 func (req *ReqUpdateUser) ToModelUser() *models.User {

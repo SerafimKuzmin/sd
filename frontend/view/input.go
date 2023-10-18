@@ -15,7 +15,7 @@ func InputCred() (string, string, error) {
 	}
 
 	var password string
-	fmt.Printf("Введите пароль: ")
+	fmt.Printf("Введите email: ")
 	_, err = fmt.Scanf("%s", &password)
 	if err != nil {
 		return "", "", errors.ErrorInput
@@ -24,91 +24,98 @@ func InputCred() (string, string, error) {
 	return login, password, nil
 }
 
-func InputNewShedule() (models.NewShedule, error) {
-	var start, end uint64
-
-	fmt.Printf("Введите новое время начала и конца приема через пробел: ")
-	_, err := fmt.Scanf("%d %d", &start, &end)
-	if err != nil {
-		return models.NewShedule{}, errors.ErrorInput
-	}
-
-	return models.NewShedule{Start: start, End: end}, nil
-}
-
-func InputPetData() (models.Pet, error) {
-	fmt.Printf("Введите кличку питомца: ")
+func CreateListData() (models.List, error) {
+	fmt.Printf("Введите название списка: ")
 	var name string
 	_, err := fmt.Scanf("%s", &name)
 	if err != nil {
-		return models.Pet{}, errors.ErrorInput
+		return models.List{}, errors.ErrorInput
 	}
 
-	fmt.Printf("Введите тип питомца: ")
-	var typePet string
-	_, err = fmt.Scanf("%s", &typePet)
-	if err != nil {
-		return models.Pet{}, errors.ErrorInput
-	}
-
-	fmt.Printf("Введите возраст питомца: ")
-	var age uint64
-	_, err = fmt.Scanf("%d", &age)
-	if err != nil {
-		return models.Pet{}, errors.ErrorInput
-	}
-
-	fmt.Printf("Введите уровень здоровья питомца: ")
-	var health uint64
-	_, err = fmt.Scanf("%d", &health)
-	if err != nil {
-		return models.Pet{}, errors.ErrorInput
-	}
-
-	return models.Pet{Name: name, Type: typePet, Age: age, Health: health}, nil
+	return models.List{Name: name}, nil
 }
 
-func InputRecordData() (models.Record, error) {
-	fmt.Printf("\nНапоминаем, что время 1 приема к врачу длится 1 час и начинается в 00.\nВы можете записаться к доктору только в его свободное время.\n")
-	fmt.Printf("Введите id питомца: ")
-	var petId uint64
-	_, err := fmt.Scanf("%d", &petId)
+func AddFilmToListData() (models.FilmList, error) {
+	fmt.Printf("Введите ID списка: ")
+	var listId uint64
+	_, err := fmt.Scanf("%d", &listId)
 	if err != nil {
-		return models.Record{}, errors.ErrorInput
+		return models.FilmList{}, errors.ErrorInput
 	}
 
-	fmt.Printf("Введите id доктора: ")
-	var doctorId uint64
-	_, err = fmt.Scanf("%d", &doctorId)
+	fmt.Printf("Введите ID фильма: ")
+	var filmId uint64
+	_, err = fmt.Scanf("%d", &filmId)
 	if err != nil {
-		return models.Record{}, errors.ErrorInput
+		return models.FilmList{}, errors.ErrorInput
 	}
 
-	fmt.Printf("Введите дату для приема (год, месяц, день через пробел цифрами): ")
-	var year, month, day int
-	_, err = fmt.Scanf("%d %d %d", &year, &month, &day)
-	if err != nil {
-		return models.Record{}, errors.ErrorInput
-	}
-
-	fmt.Printf("Введите время начала приема: ")
-	var start int
-	_, err = fmt.Scanf("%d", &start)
-	if err != nil {
-		return models.Record{}, errors.ErrorInput
-	}
-
-	record := models.Record{PetId: petId, DoctorId: doctorId, Year: year, Month: month, Day: day, DatetimeStart: start}
-	return record, nil
+	return models.FilmList{ListID: listId, FilmID: filmId}, nil
 }
 
-func InputPetId() (uint64, error) {
-	fmt.Printf("\nВведите id питомца для удаления: ")
+func RateFilmData() (models.RateFilm, error) {
+
+	fmt.Printf("Введите ID фильма: ")
+	var filmId uint64
+	_, err := fmt.Scanf("%d", &filmId)
+	if err != nil {
+		return models.RateFilm{}, errors.ErrorInput
+	}
+
+	fmt.Printf("Введите оценку (от 0 до 10): ")
+	var rate float64
+	_, err = fmt.Scanf("%f", &rate)
+	if err != nil {
+		return models.RateFilm{}, errors.ErrorInput
+	}
+
+	return models.RateFilm{Rate: rate, FilmID: filmId}, nil
+}
+
+func GetID() (uint64, error) {
+
+	fmt.Printf("Введите ID : ")
 	var id uint64
 	_, err := fmt.Scanf("%d", &id)
 	if err != nil {
-		return 0, errors.ErrorInput
+		return -1, errors.ErrorInput
 	}
 
 	return id, nil
+}
+
+func CreateFilmData() (models.Film, error) {
+
+	fmt.Printf("Введите название фильма: ")
+	var name string
+	_, err := fmt.Scanf("%s", &name)
+	if err != nil {
+		return models.Film{}, errors.ErrorInput
+	}
+	fmt.Printf("Введите описание фильма: ")
+	var desc string
+	_, err = fmt.Scanf("%s", &desc)
+	if err != nil {
+		return models.Film{}, errors.ErrorInput
+	}
+	fmt.Printf("Введите рейтинг: ")
+	var rate float64
+	_, err = fmt.Scanf("%f", &rate)
+	if err != nil {
+		return models.Film{}, errors.ErrorInput
+	}
+	fmt.Printf("Введите жанр: ")
+	var genre string
+	_, err = fmt.Scanf("%s", &genre)
+	if err != nil {
+		return models.Film{}, errors.ErrorInput
+	}
+	fmt.Printf("Введите продолжительность: ")
+	var dur uint
+	_, err = fmt.Scanf("%d", &dur)
+	if err != nil {
+		return models.Film{}, errors.ErrorInput
+	}
+
+	return models.Film{Name: name, Duration: dur, Description: desc, Rate: rate, Genre: genre}, nil
 }

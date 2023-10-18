@@ -2,7 +2,6 @@ package flags
 
 import (
 	"context"
-
 	"github.com/redis/go-redis/v9"
 )
 
@@ -12,6 +11,10 @@ type RedisFlags struct {
 }
 
 func (f RedisFlags) Init() (*redis.Client, error) {
+	//cfg := redis.Options{Addr: f.Addr, Password: f.Password, DB: 0, TLSConfig: &tls.Config{
+	//	MinVersion:         tls.VersionTLS12,
+	//	InsecureSkipVerify: true,
+	//}}
 	cfg := redis.Options{Addr: f.Addr, Password: f.Password, DB: 0}
 	redisClient := redis.NewClient(&cfg)
 

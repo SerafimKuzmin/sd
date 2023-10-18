@@ -25,7 +25,7 @@ func (del *Delivery) ownerOrAdminValidate(c echo.Context, PersonalRating *models
 		return echo.NewHTTPError(http.StatusInternalServerError, models.ErrInternalServerError.Error())
 	}
 
-	if user.Role == 2 || PersonalRating.UserID == user.ID {
+	if user.Role == 0 || PersonalRating.UserID == user.ID {
 		return nil
 	}
 

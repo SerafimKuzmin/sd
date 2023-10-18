@@ -294,6 +294,6 @@ func NewDelivery(e *echo.Echo, eu FilmUsecase.UsecaseI, aclM *middleware.AclMidd
 	e.POST("/film/edit", handler.UpdateFilm)
 	e.GET("/film/:id", handler.GetFilm)
 	e.DELETE("/film/:id", handler.DeleteFilm)
-	e.GET("/country/:country_id/films", handler.GetFilmByCountry)
+	e.GET("/country/:id/films", handler.GetFilmByCountry)
 	e.GET("/person/:person_id/films", handler.GetFilmByPerson)
 }

@@ -9,14 +9,14 @@ import (
 )
 
 type Film struct {
-	ID          uint64    `gorm:"column:modie_id"`
-	Name        string    `gorm:"column:name"`
-	Description string    `gorm:"column:description"`
-	Rate        float64   `gorm:"column:rate"`
-	Genre       string    `gorm:"column:genre"`
-	ReleaseDT   time.Time `gorm:"column:release_dt"`
-	Duration    uint      `gorm:"column:duration"`
-	CountryID   uint64    `gorm:"column:country_id"`
+	ID          uint64  `gorm:"column:id"`
+	Name        string  `gorm:"column:title"`
+	Description string  `gorm:"column:overview"`
+	Rate        float64 `gorm:"column:rating"`
+	//Genre       string    `gorm:"column:genre"`
+	ReleaseDT time.Time `gorm:"column:release_date"`
+	Duration  uint      `gorm:"column:runtime"`
+	//CountryID uint64    `gorm:"column:country_id"`
 }
 
 func (Film) TableName() string {
@@ -32,16 +32,25 @@ func (FilmPerson) TableName() string {
 	return "moviemember"
 }
 
+type CountryFilmRelation struct {
+	FilmID    uint64 `gorm:"column:film_id"`
+	CountryID uint64 `gorm:"column:country_id"`
+}
+
+func (CountryFilmRelation) TableName() string {
+	return "countryfilm"
+}
+
 func toPostgresFilm(g *models.Film) *Film {
 	return &Film{
 		ID:          g.ID,
 		Name:        g.Name,
 		Description: g.Description,
 		Rate:        g.Rate,
-		Genre:       g.Genre,
-		ReleaseDT:   g.ReleaseDT,
-		Duration:    g.Duration,
-		CountryID:   g.CountryID,
+		//Genre:       g.Genre,
+		ReleaseDT: g.ReleaseDT,
+		Duration:  g.Duration,
+		//CountryID: g.CountryID,
 	}
 }
 
@@ -51,10 +60,10 @@ func toModelFilm(g *Film) *models.Film {
 		Name:        g.Name,
 		Description: g.Description,
 		Rate:        g.Rate,
-		Genre:       g.Genre,
-		ReleaseDT:   g.ReleaseDT,
-		Duration:    g.Duration,
-		CountryID:   g.CountryID,
+		//Genre:       g.Genre,
+		ReleaseDT: g.ReleaseDT,
+		Duration:  g.Duration,
+		//CountryID: g.CountryID,
 	}
 }
 
@@ -98,9 +107,9 @@ func (gr FilmRepository) UpdateFilm(g *models.Film) error {
 }
 
 func (gr FilmRepository) GetFilm(id uint64) (*models.Film, error) {
-	var Film Film
+	var film Film
 
-	tx := gr.db.Where("id = ?", id).Take(&Film)
+	tx := gr.db.Where("id = ?", id).Find(&film)
 
 	if errors.Is(tx.Error, gorm.ErrRecordNotFound) {
 		return nil, models.ErrNotFound
@@ -108,7 +117,7 @@ func (gr FilmRepository) GetFilm(id uint64) (*models.Film, error) {
 		return nil, errors.Wrap(tx.Error, "database error (table Film)")
 	}
 
-	return toModelFilm(&Film), nil
+	return toModelFilm(&film), nil
 }
 
 func (gr FilmRepository) DeleteFilm(id uint64) error {
@@ -148,14 +157,26 @@ func (gr FilmRepository) GetFilmByPerson(id uint64) ([]*models.Film, error) {
 }
 
 func (gr FilmRepository) GetFilmByCountry(id uint64) ([]*models.Film, error) {
+	listFilmRels := make([]*CountryFilmRelation, 0, 10)
+	tx := gr.db.Where(&CountryFilmRelation{CountryID: id}).Find(&listFilmRels)
+
+	if tx.Error != nil {
+		return nil, errors.Wrap(tx.Error, "database error (table List)")
+	}
+
 	films := make([]*Film, 0, 10)
 
-	tx := gr.db.Where(&Film{CountryID: id}).Find(&films)
+	for idx := range listFilmRels {
+		var List Film
+		tx := gr.db.Where(&Film{ID: listFilmRels[idx].FilmID}).Take(&List)
 
-	if errors.Is(tx.Error, gorm.ErrRecordNotFound) {
-		return nil, models.ErrNotFound
-	} else if tx.Error != nil {
-		return nil, errors.Wrap(tx.Error, "database error (table tag)")
+		if errors.Is(tx.Error, gorm.ErrRecordNotFound) {
+			return nil, models.ErrNotFound
+		} else if tx.Error != nil {
+			return nil, errors.Wrap(tx.Error, "database error (table List)")
+		}
+
+		films = append(films, &List)
 	}
 
 	return toModelFilms(films), nil

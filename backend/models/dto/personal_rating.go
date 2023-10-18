@@ -7,7 +7,7 @@ import (
 type ReqCreateUpdatePersonalRating struct {
 	ID     uint64  `json:"id"`
 	UserID uint64  `json:"user_id" validate:"required"`
-	FilmID *uint64 `json:"film_id" validate:"required"`
+	FilmID uint64  `json:"film_id" validate:"required"`
 	Rate   float64 `json:"rating" validate:"required"`
 }
 
@@ -23,7 +23,7 @@ func (req *ReqCreateUpdatePersonalRating) ToModelPersonalRating() *models.Person
 type RespPersonalRating struct {
 	ID     uint64  `json:"id"`
 	UserID uint64  `json:"user_id"`
-	FilmID *uint64 `json:"film_id"`
+	FilmID uint64  `json:"film_id"`
 	Rate   float64 `json:"rating"`
 }
 

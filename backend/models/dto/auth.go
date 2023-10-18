@@ -13,12 +13,12 @@ type ReqUserSignIn struct {
 type ReqUserSignUp struct {
 	Login     string    `json:"login" validate:"required"`
 	Password  string    `json:"password" validate:"required"`
-	Role      int       `json:"role" validate:"required"`
+	Role      int       `json:"role_id" validate:"required"`
 	Email     string    `json:"email" validate:"required"`
 	FullName  string    `json:"full_name"`
 	IsActive  bool      `json:"is_active"`
 	CreateDT  time.Time `json:"create_dt"`
-	CountryID *uint64   `json:"country_id"`
+	CountryID uint64    `json:"country_id"`
 }
 
 func (req *ReqUserSignIn) ToModelUser() *models.User {
@@ -51,7 +51,7 @@ type RespUser struct {
 	FullName  string    `json:"full_name"`
 	IsActive  bool      `json:"is_active"`
 	CreateDT  time.Time `json:"create_dt"`
-	CountryID *uint64   `json:"country_id"`
+	CountryID uint64    `json:"country_id"`
 }
 
 func GetResponseFromModelUser(user *models.User) *RespUser {

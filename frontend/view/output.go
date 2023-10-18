@@ -64,76 +64,82 @@ func PrintAdminLoop() {
 4 -- поиск фильма по ID
 5 -- поиск фильма по стране
 6 -- получить свои списки фильмов
-7 -- добавить новый фильм
+7 -- получить фильмы по списку
+8 -- добавить новый фильм
 Выберите действие: `
 
 	fmt.Printf("%s", startMenu)
 }
 
-func PrintRecords(records models.Records) {
-	fmt.Printf("\n Ваши записи:\n")
+func PrintGuestMenu() {
+	startMenu :=
+		`Меню: 
+0 -- выйти
+Выберите действие: `
+
+	fmt.Printf("%s", startMenu)
+}
+
+func PrintGuestLoop() {
+	startMenu := `Меню пользователя: 
+0 -- выйти
+1 -- поиск фильма по ID
+2 -- поиск фильма по стране
+Выберите действие: `
+
+	fmt.Printf("%s", startMenu)
+}
+
+func PrintFilms(films models.Films) {
+	fmt.Printf("\n Фильм:\n")
 	w := new(tabwriter.Writer)
 
 	// minwidth, tabwidth, padding, padchar, flags
 	w.Init(os.Stdout, 9, 8, 0, '\t', 0)
 
 	fmt.Fprintf(w, "\n %s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\n",
-		"№", "Id записи", "Питомец", "Клиент", "Доктор", "Год", "Месяц", "День", "Начало", "Конец")
+		"№", "Id записи", "Название", "Описание", "Рейтинг", "Дата выхода", "Хронометраж")
 
-	for i, r := range records.Records {
-		fmt.Fprintf(w, "\n %d\t%d\t%d\t%d\t%d\t%d\t%d\t%d\t%d\t%d\n",
-			i+1, r.RecordId, r.PetId, r.ClientId, r.DoctorId, r.DatetimeStart.Year(), r.DatetimeStart.Month(),
-			r.DatetimeStart.Day(), r.DatetimeStart.Hour(),
-			r.DatetimeEnd.Hour())
+	for i, r := range films.Films {
+		fmt.Fprintf(w, "\n %d\t%d\t%s\t%s\t%f\t%d\t%d\t\n",
+			i+1, r.ID, r.Name, r.Description, r.Rate, r.ReleaseDT.Year(), r.Duration)
 	}
 	w.Flush()
 
 	fmt.Printf("\nКонец записей!\n\n")
 }
 
-func PrintPets(pets models.Pets) {
-	fmt.Printf("\nВаши питомцы:\n")
+func PrintFilm(film models.Film) {
+	fmt.Printf("\n Фильм:\n")
 	w := new(tabwriter.Writer)
 
 	// minwidth, tabwidth, padding, padchar, flags
 	w.Init(os.Stdout, 9, 8, 0, '\t', 0)
 
-	fmt.Fprintf(w, "\n %s\t%s\t%s\t%s\t%s\t%s\n",
-		"№", "Id питомца", "Кличка", "Тип", "Возраст", "Уровень здоровья")
+	fmt.Fprintf(w, "\n %s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\n",
+		"№", "Id записи", "Название", "Описание", "Рейтинг", "Дата выхода", "Хронометраж")
 
-	for i, p := range pets.Pets {
-		fmt.Fprintf(w, "\n %d\t%d\t%s\t%s\t%d\t%d\n",
-			i+1, p.PetId, p.Name, p.Type, p.Age, p.Health)
-	}
+	fmt.Fprintf(w, "\n %d\t%d\t%s\t%s\t%f\t%d\t%d\t\n",
+		film.ID, film.Name, film.Description, film.Rate, film.ReleaseDT.Year(), film.Duration)
 	w.Flush()
 
-	fmt.Printf("\nКонец!\n\n")
+	fmt.Printf("\nКонец записей!\n\n")
 }
 
-func PrintDoctors(doctors models.Doctors) {
-	fmt.Printf("\nДоктора клиники:\n")
+func PrintLists(lists models.Lists) {
+	fmt.Printf("\n Фильм:\n")
 	w := new(tabwriter.Writer)
 
 	// minwidth, tabwidth, padding, padchar, flags
 	w.Init(os.Stdout, 9, 8, 0, '\t', 0)
 
-	fmt.Fprintf(w, "\n %s\t%s\t%s\t%s\t%s\n",
-		"№", "Id доктора", "Логин доктора", "Начало приема", "Конец приема")
+	fmt.Fprintf(w, "\n %s\t%s\t%s\t%s\t\n",
+		"№", "Id записи", "Название", "Дата создания")
 
-	for i, d := range doctors.Doctors {
-		fmt.Fprintf(w, "\n %d\t%d\t%s\t%d\t%d\n",
-			i+1, d.DoctorId, d.Login, d.StartTime, d.EndTime)
+	for i, r := range lists.Lists {
+		fmt.Fprintf(w, "\n %d\t%d\t%s\t%s\t\n",
+			i+1, r.ID, r.Name, r.CreateDT.String())
 	}
 	w.Flush()
-
-	fmt.Printf("\nКонец!\n\n")
-}
-
-func PrintClientInfo(client models.Client) {
-	fmt.Printf("\nВаш логин: %s\nВаш Id: %d\n\n", client.Login, client.ClientId)
-}
-
-func PrintDoctorInfo(doctor models.Doctor) {
-	fmt.Printf("\nВаш логин: %s\nВаш Id: %d\nЕжедневное время начала приема: %d\nЕжедневное время конца приема: %d\n\n",
-		doctor.Login, doctor.DoctorId, doctor.StartTime, doctor.EndTime)
+	fmt.Printf("\nКонец записей!\n\n")
 }

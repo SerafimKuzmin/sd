@@ -6,40 +6,64 @@ type ErrorBody struct {
 	Err string `json:"error"`
 }
 
-type NewShedule struct {
-	Start uint64
-	End   uint64
+type FilmList struct {
+	FilmID uint64
+	ListID uint64
 }
 
-type Doctors struct {
-	Doctors []struct {
-		DoctorId  uint64 `json:"DoctorId"`
-		Login     string `json:"Login"`
-		StartTime uint64 `json:"StartTime"`
-		EndTime   uint64 `json:"EndTime"`
-	} `json:"doctors"`
+type RateFilm struct {
+	ID     uint64
+	UserID uint64
+	FilmID uint64
+	Rate   float64
 }
 
-type Pets struct {
-	Pets []struct {
-		PetId    uint64 `json:"PetId"`
-		Name     string `json:"Name"`
-		Type     string `json:"Type"`
-		Age      uint64 `json:"Age"`
-		Health   uint64 `json:"Health"`
-		ClientId uint64 `json:"ClientId"`
-	} `json:"pets"`
+type Film struct {
+	ID          uint64
+	Name        string
+	Description string
+	Rate        float64
+	Genre       string
+	ReleaseDT   time.Time
+	Duration    uint
+	CountryID   uint64
 }
 
-type Records struct {
-	Records []struct {
-		RecordId      uint64    `json:"RecordId"`
-		PetId         uint64    `json:"PetId"`
-		ClientId      uint64    `json:"ClientId"`
-		DoctorId      uint64    `json:"DoctorId"`
-		DatetimeStart time.Time `json:"DatetimeStart"`
-		DatetimeEnd   time.Time `json:"DatetimeEnd"`
-	} `json:"records"`
+type User struct {
+	ID        uint64
+	Login     string
+	Password  string
+	Role      int
+	Email     string
+	FullName  string
+	IsActive  bool
+	CreateDT  time.Time
+	CountryID uint64
+}
+
+type List struct {
+	ID       uint64
+	Name     string
+	CreateDT time.Time
+}
+
+type Lists struct {
+	Lists []struct {
+		ID       uint64    `json:"id"`
+		Name     string    `json:"name"`
+		CreateDT time.Time `json:"create_dt"`
+	} `json:"body"`
+}
+
+type Films struct {
+	Films []struct {
+		ID          uint64    `json:"id"`
+		Name        string    `json:"name"`
+		Description string    `json:"description"`
+		Rate        float64   `json:"rate"`
+		ReleaseDT   time.Time `json:"release_dt"`
+		Duration    uint      `json:"duration"`
+	} `json:"body"`
 }
 
 type Client struct {
@@ -47,33 +71,4 @@ type Client struct {
 	Login    string `json:"Login"`
 	Password string
 	Token    string `json:"Token"`
-}
-
-type Doctor struct {
-	DoctorId  uint64 `json:"DoctorId"`
-	Login     string `json:"Login"`
-	Password  string
-	Token     string `json:"Token"`
-	StartTime uint64 `json:"StartTime"`
-	EndTime   uint64 `json:"EndTime"`
-}
-
-type Pet struct {
-	PetId    uint64 `json:"PetId"`
-	Name     string `json:"Name"`
-	Type     string `json:"Type"`
-	Age      uint64 `json:"Age"`
-	Health   uint64 `json:"Health"`
-	ClientId uint64 `json:"ClientId"`
-}
-
-type Record struct {
-	RecordId      uint64
-	PetId         uint64
-	ClientId      uint64
-	DoctorId      uint64
-	Year          int
-	Month         int
-	Day           int
-	DatetimeStart int
 }

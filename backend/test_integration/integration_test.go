@@ -1,8 +1,8 @@
 package testintegration
 
 import (
-	entryRep "github.com/SerafimKuzmin/sd/backend/internal/Entry/repository/postgres"
-	entryUsecase "github.com/SerafimKuzmin/sd/backend/internal/Entry/usecase"
+	//entryRep "github.com/SerafimKuzmin/sd/backend/internal/Entry/repository/postgres"
+	//entryUsecase "github.com/SerafimKuzmin/sd/backend/internal/Entry/usecase"
 	projectRep "github.com/SerafimKuzmin/sd/backend/internal/Person/repository/postgres"
 	projectUsecase "github.com/SerafimKuzmin/sd/backend/internal/Person/usecase"
 	tagRep "github.com/SerafimKuzmin/sd/backend/internal/PersonalRating/repository/postgres"

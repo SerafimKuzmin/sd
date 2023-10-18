@@ -18,6 +18,6 @@
     addr =':6379'
     password = 'ws_redis_password'
 
-[redis-project-storage-client]
+[redis-person-storage-client]
     addr =':6380'
     password = 'ws_redis_password'

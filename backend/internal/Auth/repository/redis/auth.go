@@ -5,6 +5,7 @@ import (
 	"github.com/SerafimKuzmin/sd/backend/internal/Auth/repository"
 	"github.com/SerafimKuzmin/sd/backend/models"
 	"github.com/pkg/errors"
+	"github.com/redis/go-redis/v9"
 )
 
 type authRepository struct {

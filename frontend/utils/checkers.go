@@ -6,6 +6,7 @@ import (
 	errors "github.com/SerafimKuzmin/sd/frontend/errors"
 	models "github.com/SerafimKuzmin/sd/frontend/models"
 	"io"
+	"math/rand"
 	"net/http"
 )
 
@@ -50,58 +51,69 @@ func ParseClientBody(response *http.Response) (models.Client, error) {
 	return result, nil
 }
 
-func ParsePetsBody(response *http.Response) (models.Pets, error) {
+func ParseUserBody(response *http.Response) (models.User, error) {
 	body, err := io.ReadAll(response.Body)
 	if err != nil {
-		return models.Pets{}, errors.ErrorReadBody
+		return models.User{}, errors.ErrorReadBody
 	}
 
-	var result models.Pets
+	var result models.User
 	if err := json.Unmarshal(body, &result); err != nil {
-		return models.Pets{}, errors.ErrorParseBody
+		return models.User{}, errors.ErrorParseBody
 	}
 
 	return result, nil
 }
 
-func ParseDoctorBody(response *http.Response) (models.Doctor, error) {
+func ParseFilmBody(response *http.Response) (models.Film, error) {
 	body, err := io.ReadAll(response.Body)
 	if err != nil {
-		return models.Doctor{}, errors.ErrorParseBody
+		return models.Film{}, errors.ErrorReadBody
 	}
 
-	var result models.Doctor
+	var result models.Film
 	if err := json.Unmarshal(body, &result); err != nil {
-		return models.Doctor{}, errors.ErrorParseBody
+		return models.Film{}, errors.ErrorParseBody
 	}
 
 	return result, nil
 }
 
-func ParseDoctorsBody(response *http.Response) (models.Doctors, error) {
+func ParseFilmsBody(response *http.Response) (models.Films, error) {
 	body, err := io.ReadAll(response.Body)
 	if err != nil {
-		return models.Doctors{}, errors.ErrorParseBody
+		return models.Films{}, errors.ErrorReadBody
 	}
 
-	var result models.Doctors
+	var result models.Films
 	if err := json.Unmarshal(body, &result); err != nil {
-		return models.Doctors{}, errors.ErrorParseBody
+		return models.Films{}, errors.ErrorParseBody
 	}
 
 	return result, nil
 }
 
-func ParseRecordsBody(response *http.Response) (models.Records, error) {
+func ParseListsBody(response *http.Response) (models.Lists, error) {
 	body, err := io.ReadAll(response.Body)
 	if err != nil {
-		return models.Records{}, errors.ErrorParseBody
+		return models.Lists{}, errors.ErrorReadBody
 	}
 
-	var result models.Records
+	var result models.Lists
 	if err := json.Unmarshal(body, &result); err != nil {
-		return models.Records{}, errors.ErrorParseBody
+		return models.Lists{}, errors.ErrorParseBody
 	}
 
 	return result, nil
+}
+
+var letterRunes = []rune("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ")
+
+func GetToken() string {
+	n := 10
+	b := make([]rune, n)
+	for i := range b {
+		b[i] = letterRunes[rand.Intn(len(letterRunes))]
+	}
+	return string(b)
 }

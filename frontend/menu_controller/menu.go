@@ -22,13 +22,12 @@ func RunMenu(client *http.Client) error {
 		}
 	case 1:
 
-		err := doctorMenu(client)
+		err := adminMenu(client)
 		if err != nil {
 			return err
 		}
 	case 2:
-		!!!!!!!!!!!!!!!!
-		err := getDoctors(client)
+		err := guestMenu(client)
 		if err != nil {
 			return err
 		}

@@ -157,7 +157,7 @@ func NewDelivery(e *echo.Echo, uc userUsecase.UsecaseI, aclM *middleware.AclMidd
 		UserUC: uc,
 	}
 
-	e.GET("/users/:user_id", handler.GetUser, aclM.FriendsOrAdminOnly)
+	e.GET("/users/:user_id", handler.GetUser, aclM.AdminOnly)
 	e.GET("/me", handler.GetMe)
 	e.GET("/users", handler.GetUsers, aclM.AdminOnly)
 	e.PUT("/me/edit", handler.UpdateUser)

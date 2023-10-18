@@ -118,7 +118,7 @@ func loginClient(client *http.Client) (string, error) {
 	}
 	newClient := models.Client{Login: login, Password: password}
 
-	response, err := handlers.LoginClient(client, &newClient)
+	response, err := handlers.Login(client, &newClient)
 	if err == errors.ErrorResponseStatus {
 		return "", utils.CheckErrorInBody(response)
 	} else if err != nil {
@@ -138,9 +138,9 @@ func createClient(client *http.Client) (string, error) {
 	if err != nil {
 		return "", err
 	}
-	newClient := models.Client{Login: login, Password: password}
+	newClient := models.User{Login: login, Password: password}
 
-	response, err := handlers.CreateClient(client, &newClient)
+	response, err := handlers.Create(client, &newClient)
 	if err == errors.ErrorResponseStatus {
 		return "", utils.CheckErrorInBody(response)
 	} else if err != nil {
@@ -156,12 +156,12 @@ func createClient(client *http.Client) (string, error) {
 }
 
 func createList(client *http.Client, token string) error {
-	body, err := view.createListData()
+	body, err := view.CreateListData()
 	if err != nil {
 		return err
 	}
 
-	response, err := handlers.createList(client, token, body)
+	response, err := handlers.CreateList(client, token, &body)
 	if err == errors.ErrorResponseStatus {
 		return utils.CheckErrorInBody(response)
 	} else if err != nil {
@@ -172,12 +172,12 @@ func createList(client *http.Client, token string) error {
 }
 
 func addFilmToList(client *http.Client, token string) error {
-	body, err := view.addFilmToListData()
+	body, err := view.AddFilmToListData()
 	if err != nil {
 		return err
 	}
 
-	response, err := handlers.addFilmToList(client, token, body)
+	response, err := handlers.AddFilmList(client, token, &body)
 	if err == errors.ErrorResponseStatus {
 		return utils.CheckErrorInBody(response)
 	} else if err != nil {
@@ -188,12 +188,12 @@ func addFilmToList(client *http.Client, token string) error {
 }
 
 func rateFilm(client *http.Client, token string) error {
-	body, err := view.rateFilmData()
+	body, err := view.RateFilmData()
 	if err != nil {
 		return err
 	}
 
-	response, err := handlers.rateFilm(client, token, body)
+	response, err := handlers.RateFilm(client, token, &body)
 	if err == errors.ErrorResponseStatus {
 		return utils.CheckErrorInBody(response)
 	} else if err != nil {
@@ -204,12 +204,12 @@ func rateFilm(client *http.Client, token string) error {
 }
 
 func getFilmByCountry(client *http.Client, token string) error {
-	body, err := view.getFilmByCountryData()
+	body, err := view.GetID()
 	if err != nil {
 		return err
 	}
 
-	response, err := handlers.getFilmByCountry(client, token, body)
+	response, err := handlers.GetFilmByCountry(client, body)
 	if err == errors.ErrorResponseStatus {
 		return utils.CheckErrorInBody(response)
 	} else if err != nil {
@@ -227,35 +227,35 @@ func getFilmByCountry(client *http.Client, token string) error {
 }
 
 func getFilmByID(client *http.Client, token string) error {
-	body, err := view.getFilmByIDData()
+	body, err := view.GetID()
 	if err != nil {
 		return err
 	}
 
-	response, err := handlers.getFilmByID(client, token, body)
+	response, err := handlers.GetFilmByID(client, body)
 	if err == errors.ErrorResponseStatus {
 		return utils.CheckErrorInBody(response)
 	} else if err != nil {
 		return err
 	}
 
-	records, err := utils.ParseFilmsBody(response)
+	records, err := utils.ParseFilmBody(response)
 	if err != nil {
 		return err
 	}
 
-	view.PrintFilms(records)
+	view.PrintFilm(records)
 
 	return nil
 }
 
 func getFilmByList(client *http.Client, token string) error {
-	body, err := view.getFilmByListData()
+	body, err := view.GetID()
 	if err != nil {
 		return err
 	}
 
-	response, err := handlers.getFilmByList(client, token, body)
+	response, err := handlers.GetFilmsByList(client, token, body)
 	if err == errors.ErrorResponseStatus {
 		return utils.CheckErrorInBody(response)
 	} else if err != nil {
@@ -273,12 +273,12 @@ func getFilmByList(client *http.Client, token string) error {
 }
 
 func getLists(client *http.Client, token string) error {
-	body, err := view.getListsData()
+	body, err := view.GetID()
 	if err != nil {
 		return err
 	}
 
-	response, err := handlers.getLists(client, token, body)
+	response, err := handlers.GetLists(client, token, body)
 	if err == errors.ErrorResponseStatus {
 		return utils.CheckErrorInBody(response)
 	} else if err != nil {

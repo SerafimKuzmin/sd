@@ -10,10 +10,8 @@ type ReqCreateUpdateFilm struct {
 	Name        string    `json:"name" validate:"required"`
 	Description string    `json:"description"`
 	Rate        float64   `json:"rate"`
-	Genre       string    `json:"genre"`
 	ReleaseDT   time.Time `json:"release_dt"`
 	Duration    uint      `json:"duration"`
-	CountryID   *uint64   `json:"country_id"`
 }
 
 func (req *ReqCreateUpdateFilm) ToModelFilm() *models.Film {
@@ -22,10 +20,8 @@ func (req *ReqCreateUpdateFilm) ToModelFilm() *models.Film {
 		Name:        req.Name,
 		Description: req.Description,
 		Rate:        req.Rate,
-		Genre:       req.Genre,
 		ReleaseDT:   req.ReleaseDT,
 		Duration:    req.Duration,
-		CountryID:   req.CountryID,
 	}
 }
 
@@ -34,10 +30,8 @@ type RespFilm struct {
 	Name        string    `json:"name"`
 	Description string    `json:"description"`
 	Rate        float64   `json:"rate"`
-	Genre       string    `json:"genre"`
 	ReleaseDT   time.Time `json:"release_dt"`
 	Duration    uint      `json:"duration"`
-	CountryID   *uint64   `json:"country_id"`
 }
 
 func GetResponseFromModelFilm(film *models.Film) *RespFilm {
@@ -46,10 +40,8 @@ func GetResponseFromModelFilm(film *models.Film) *RespFilm {
 		Name:        film.Name,
 		Description: film.Description,
 		Rate:        film.Rate,
-		Genre:       film.Genre,
 		ReleaseDT:   film.ReleaseDT,
 		Duration:    film.Duration,
-		CountryID:   film.CountryID,
 	}
 }
 
