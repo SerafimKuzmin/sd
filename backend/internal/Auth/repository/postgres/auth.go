@@ -1,7 +1,7 @@
 package postgres
 
 import (
-	"github.com/SerafimKuzmin/sd/backend/internal/Auth/repository"
+	"github.com/SerafimKuzmin/sd/backend/internal/Auth/usecase"
 	"github.com/SerafimKuzmin/sd/backend/models"
 	"strconv"
 	"time"
@@ -39,7 +39,7 @@ func toModelCookie(e *Cookie) *models.Cookie {
 	}
 }
 
-func NewAuthRepositoryPostgres(db *gorm.DB) repository.RepositoryI {
+func NewAuthRepositoryPostgres(db *gorm.DB) usecase.RepositoryI {
 	return &authRepositoryPostgres{
 		db: db,
 	}

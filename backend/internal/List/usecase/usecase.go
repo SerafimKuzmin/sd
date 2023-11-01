@@ -1,7 +1,6 @@
 package usecase
 
 import (
-	listRep "github.com/SerafimKuzmin/sd/backend/internal/List/repository"
 	"github.com/SerafimKuzmin/sd/backend/models"
 	"github.com/pkg/errors"
 )
@@ -17,10 +16,10 @@ type UsecaseI interface {
 }
 
 type usecase struct {
-	listRepository listRep.RepositoryI
+	listRepository RepositoryI
 }
 
-func New(lRep listRep.RepositoryI) UsecaseI {
+func New(lRep RepositoryI) UsecaseI {
 	return &usecase{
 		listRepository: lRep,
 	}

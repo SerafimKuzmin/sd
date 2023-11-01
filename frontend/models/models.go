@@ -26,7 +26,6 @@ type Film struct {
 	Genre       string
 	ReleaseDT   time.Time
 	Duration    uint
-	CountryID   uint64
 }
 
 type User struct {
@@ -55,7 +54,7 @@ type Lists struct {
 	} `json:"body"`
 }
 
-type Films struct {
+type FilmsResponse struct {
 	Films []struct {
 		ID          uint64    `json:"id"`
 		Name        string    `json:"name"`
@@ -64,6 +63,10 @@ type Films struct {
 		ReleaseDT   time.Time `json:"release_dt"`
 		Duration    uint      `json:"duration"`
 	} `json:"body"`
+}
+
+type FilmResponse struct {
+	Body Film
 }
 
 type Client struct {

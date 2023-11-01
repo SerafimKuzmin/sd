@@ -90,7 +90,7 @@ func PrintGuestLoop() {
 	fmt.Printf("%s", startMenu)
 }
 
-func PrintFilms(films models.Films) {
+func PrintFilms(films models.FilmsResponse) {
 	fmt.Printf("\n Фильм:\n")
 	w := new(tabwriter.Writer)
 
@@ -116,10 +116,10 @@ func PrintFilm(film models.Film) {
 	// minwidth, tabwidth, padding, padchar, flags
 	w.Init(os.Stdout, 9, 8, 0, '\t', 0)
 
-	fmt.Fprintf(w, "\n %s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\n",
+	fmt.Fprintf(w, "\n %s\t%s\t%s\t%s\t%s\t%s\t%s\t\n",
 		"№", "Id записи", "Название", "Описание", "Рейтинг", "Дата выхода", "Хронометраж")
 
-	fmt.Fprintf(w, "\n %d\t%d\t%s\t%s\t%f\t%d\t%d\t\n",
+	fmt.Fprintf(w, "\n %d\t%s\t%s\t%f\t%d\t%d\t\n",
 		film.ID, film.Name, film.Description, film.Rate, film.ReleaseDT.Year(), film.Duration)
 	w.Flush()
 

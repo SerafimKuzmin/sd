@@ -1,7 +1,7 @@
 package postgres
 
 import (
-	"github.com/SerafimKuzmin/sd/backend/internal/PersonalRating/repository"
+	"github.com/SerafimKuzmin/sd/backend/internal/PersonalRating/usecase"
 	"github.com/SerafimKuzmin/sd/backend/models"
 	"github.com/pkg/errors"
 	"gorm.io/gorm"
@@ -99,7 +99,7 @@ func (tr PersonalRatingRepository) DeletePersonalRating(id uint64) error {
 	return nil
 }
 
-func NewPersonalRatingRepository(db *gorm.DB) repository.RepositoryI {
+func NewPersonalRatingRepository(db *gorm.DB) usecase.RepositoryI {
 	return &PersonalRatingRepository{
 		db: db,
 	}

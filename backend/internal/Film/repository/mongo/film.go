@@ -2,7 +2,7 @@ package mongo
 
 import (
 	"context"
-	"github.com/SerafimKuzmin/sd/backend/internal/Film/repository"
+	"github.com/SerafimKuzmin/sd/backend/internal/Film/usecase"
 	"github.com/SerafimKuzmin/sd/backend/models"
 	"github.com/pkg/errors"
 	"go.mongodb.org/mongo-driver/bson"
@@ -12,14 +12,12 @@ import (
 )
 
 type Film struct {
-	ID          uint64    `bson:"modie_id"`
-	Name        string    `bson:"name"`
-	Description string    `bson:"description"`
-	Rate        float64   `bson:"rate"`
-	Genre       string    `bson:"genre"`
-	ReleaseDT   time.Time `bson:"release_dt"`
-	Duration    uint      `bson:"duration"`
-	FilmID      uint64    `bson:"Film_id"`
+	ID          uint64    `bson:"id"`
+	Name        string    `bson:"title"`
+	Description string    `bson:"overview"`
+	Rate        float64   `bson:"rating"`
+	ReleaseDT   time.Time `bson:"release_date"`
+	Duration    uint      `bson:"runtime"`
 }
 
 func (Film) TableName() string {
@@ -41,7 +39,6 @@ func toMongoFilm(g *models.Film) *Film {
 		Name:        g.Name,
 		Description: g.Description,
 		Rate:        g.Rate,
-		Genre:       g.Genre,
 		ReleaseDT:   g.ReleaseDT,
 		Duration:    g.Duration,
 	}
@@ -53,7 +50,6 @@ func toModelFilm(g *Film) *models.Film {
 		Name:        g.Name,
 		Description: g.Description,
 		Rate:        g.Rate,
-		Genre:       g.Genre,
 		ReleaseDT:   g.ReleaseDT,
 		Duration:    g.Duration,
 	}
@@ -73,7 +69,7 @@ type FilmRepository struct {
 	db *mongo.Database
 }
 
-func NewFilmRepository(db *mongo.Database) repository.RepositoryI {
+func NewFilmRepository(db *mongo.Database) usecase.RepositoryI {
 	return &FilmRepository{
 		db: db,
 	}

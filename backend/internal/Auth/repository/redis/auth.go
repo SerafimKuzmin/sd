@@ -2,7 +2,7 @@ package redis
 
 import (
 	"context"
-	"github.com/SerafimKuzmin/sd/backend/internal/Auth/repository"
+	"github.com/SerafimKuzmin/sd/backend/internal/Auth/usecase"
 	"github.com/SerafimKuzmin/sd/backend/models"
 	"github.com/pkg/errors"
 	"github.com/redis/go-redis/v9"
@@ -45,7 +45,7 @@ func (ar authRepository) DeleteCookie(value string) error {
 	return nil
 }
 
-func NewAuthRepository(db *redis.Client) repository.RepositoryI {
+func NewAuthRepository(db *redis.Client) usecase.RepositoryI {
 	return &authRepository{
 		db:  db,
 		ctx: context.Background(),

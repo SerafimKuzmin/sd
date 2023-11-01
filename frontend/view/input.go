@@ -8,14 +8,14 @@ import (
 
 func InputCred() (string, string, error) {
 	var login string
-	fmt.Printf("Введите логин: ")
+	fmt.Printf("Введите email: ")
 	_, err := fmt.Scanf("%s", &login)
 	if err != nil {
 		return "", "", errors.ErrorInput
 	}
 
 	var password string
-	fmt.Printf("Введите email: ")
+	fmt.Printf("Введите пароль: ")
 	_, err = fmt.Scanf("%s", &password)
 	if err != nil {
 		return "", "", errors.ErrorInput
@@ -78,7 +78,7 @@ func GetID() (uint64, error) {
 	var id uint64
 	_, err := fmt.Scanf("%d", &id)
 	if err != nil {
-		return -1, errors.ErrorInput
+		return 0, errors.ErrorInput
 	}
 
 	return id, nil

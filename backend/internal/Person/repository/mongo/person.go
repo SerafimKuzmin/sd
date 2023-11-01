@@ -2,7 +2,7 @@ package mongo
 
 import (
 	"context"
-	"github.com/SerafimKuzmin/sd/backend/internal/Person/repository"
+	"github.com/SerafimKuzmin/sd/backend/internal/Person/usecase"
 	"github.com/SerafimKuzmin/sd/backend/models"
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/mongo"
@@ -48,7 +48,7 @@ type PersonRepository struct {
 	db *mongo.Database
 }
 
-func NewPersonRepository(db *mongo.Database) repository.RepositoryI {
+func NewPersonRepository(db *mongo.Database) usecase.RepositoryI {
 	return &PersonRepository{
 		db: db,
 	}

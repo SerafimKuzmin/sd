@@ -18,19 +18,6 @@ type Delivery struct {
 	UserUC userUsecase.UsecaseI
 }
 
-// GetUser godoc
-// @Summary      GetProfile
-// @Description  get user's profile
-// @Tags     users
-// @Produce  application/json
-// @Param id path int true "User ID"
-// @Success  200 {object} pkg.Response{body=dto.RespUser} "success get user"
-// @Failure 405 {object} echo.HTTPError "Method Not Allowed"
-// @Failure 400 {object} echo.HTTPError "bad request"
-// @Failure 500 {object} echo.HTTPError "internal server error"
-// @Failure 404 {object} echo.HTTPError "can't find user with such id"
-// @Failure 401 {object} echo.HTTPError "no cookie"
-// @Router   /users/{user_id} [get]
 func (del *Delivery) GetUser(c echo.Context) error {
 	id, err := strconv.ParseUint(c.Param("user_id"), 10, 64)
 	if err != nil {
@@ -49,16 +36,6 @@ func (del *Delivery) GetUser(c echo.Context) error {
 	return c.JSON(http.StatusOK, pkg.Response{Body: respUser})
 }
 
-// GetUsers godoc
-// @Summary      GetUsers
-// @Description  get all users. Acl: admin
-// @Tags     users
-// @Produce  application/json
-// @Success  200 {object} pkg.Response{body=[]dto.RespUser} "success get users"
-// @Failure 405 {object} echo.HTTPError "Method Not Allowed"
-// @Failure 500 {object} echo.HTTPError "internal server error"
-// @Failure 401 {object} echo.HTTPError "no cookie"
-// @Router   /users [get]
 func (del *Delivery) GetUsers(c echo.Context) error {
 	users, err := del.UserUC.GetUsers()
 
@@ -72,16 +49,6 @@ func (del *Delivery) GetUsers(c echo.Context) error {
 	return c.JSON(http.StatusOK, pkg.Response{Body: respUsers})
 }
 
-// GetMe godoc
-// @Summary      get info about me.
-// @Description  get info about me.
-// @Tags     users
-// @Produce  application/json
-// @Success  200 {object} pkg.Response{body=dto.RespUser} "success get users"
-// @Failure 405 {object} echo.HTTPError "Method Not Allowed"
-// @Failure 500 {object} echo.HTTPError "internal server error"
-// @Failure 401 {object} echo.HTTPError "no cookie"
-// @Router   /me [get]
 func (del *Delivery) GetMe(c echo.Context) error {
 	user, ok := c.Get("user").(*models.User)
 	if !ok {
@@ -93,21 +60,6 @@ func (del *Delivery) GetMe(c echo.Context) error {
 	return c.JSON(http.StatusOK, pkg.Response{Body: respUser})
 }
 
-// UpdateUser godoc
-// @Summary      UpdateUser
-// @Description  update user's profile. Acl: user(owner account)
-// @Tags     users
-// @Accept	 application/json
-// @Produce  application/json
-// @Param user body dto.ReqUpdateUser true "user data"
-// @Success  204 "success update"
-// @Failure 405 {object} echo.HTTPError "Method Not Allowed"
-// @Failure 400 {object} echo.HTTPError "bad request"
-// @Failure 500 {object} echo.HTTPError "internal server error"
-// @Failure 404 {object} echo.HTTPError "can't find user with such id"
-// @Failure 401 {object} echo.HTTPError "no cookie"
-// @Failure 403 {object} echo.HTTPError "invalid csrf"
-// @Router   /me/edit [put]
 func (del *Delivery) UpdateUser(c echo.Context) error {
 	var reqUser dto.ReqUpdateUser
 	err := c.Bind(&reqUser)

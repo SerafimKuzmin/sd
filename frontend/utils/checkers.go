@@ -71,23 +71,23 @@ func ParseFilmBody(response *http.Response) (models.Film, error) {
 		return models.Film{}, errors.ErrorReadBody
 	}
 
-	var result models.Film
+	var result models.FilmResponse
 	if err := json.Unmarshal(body, &result); err != nil {
 		return models.Film{}, errors.ErrorParseBody
 	}
 
-	return result, nil
+	return result.Body, nil
 }
 
-func ParseFilmsBody(response *http.Response) (models.Films, error) {
+func ParseFilmsBody(response *http.Response) (models.FilmsResponse, error) {
 	body, err := io.ReadAll(response.Body)
 	if err != nil {
-		return models.Films{}, errors.ErrorReadBody
+		return models.FilmsResponse{}, errors.ErrorReadBody
 	}
 
-	var result models.Films
+	var result models.FilmsResponse
 	if err := json.Unmarshal(body, &result); err != nil {
-		return models.Films{}, errors.ErrorParseBody
+		return models.FilmsResponse{}, errors.ErrorParseBody
 	}
 
 	return result, nil

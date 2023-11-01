@@ -1,7 +1,6 @@
 package usecase
 
 import (
-	PersonRep "github.com/SerafimKuzmin/sd/backend/internal/Person/repository"
 	"github.com/SerafimKuzmin/sd/backend/internal/cache"
 	"github.com/SerafimKuzmin/sd/backend/models"
 	"github.com/pkg/errors"
@@ -15,11 +14,11 @@ type UsecaseI interface {
 }
 
 type usecase struct {
-	PersonRepository PersonRep.RepositoryI
+	PersonRepository RepositoryI
 	redisStorage     cache.CacheStorageI
 }
 
-func New(pRep PersonRep.RepositoryI, rS cache.CacheStorageI) UsecaseI {
+func New(pRep RepositoryI, rS cache.CacheStorageI) UsecaseI {
 	return &usecase{
 		PersonRepository: pRep,
 		redisStorage:     rS,

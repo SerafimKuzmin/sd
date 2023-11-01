@@ -2,7 +2,7 @@ package mongo
 
 import (
 	"context"
-	"github.com/SerafimKuzmin/sd/backend/internal/Auth/repository"
+	"github.com/SerafimKuzmin/sd/backend/internal/Auth/usecase"
 	"github.com/SerafimKuzmin/sd/backend/models"
 	"github.com/pkg/errors"
 	"go.mongodb.org/mongo-driver/bson"
@@ -21,7 +21,7 @@ type Cookie struct {
 	ExpireTime   time.Time `bson:"expire_time"`
 }
 
-func NewAuthRepository(db *mongo.Database) repository.RepositoryI {
+func NewAuthRepository(db *mongo.Database) usecase.RepositoryI {
 	return &authRepository{
 		db: db,
 	}

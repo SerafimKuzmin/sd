@@ -32,22 +32,6 @@ func (del *Delivery) adminValidate(c echo.Context) error {
 	return models.ErrPermissionDenied
 }
 
-// CreatePerson godoc
-// @Summary      Create Person
-// @Description  Create Person
-// @Tags     	 Person
-// @Accept	 application/json
-// @Produce  application/json
-// @Param    Person body dto.ReqCreateUpdatePerson true "Person info"
-// @Success  200 {object} pkg.Response{body=dto.RespPerson} "success update Person"
-// @Failure 405 {object} echo.HTTPError "invalid http method"
-// @Failure 400 {object} echo.HTTPError "bad request"
-// @Failure 422 {object} echo.HTTPError "unprocessable entity"
-// @Failure 500 {object} echo.HTTPError "internal server error"
-// @Failure 401 {object} echo.HTTPError "no cookie"
-// @Failure 400 {object} echo.HTTPError "bad req"
-// @Failure 403 {object} echo.HTTPError "invalid csrf or permission denied"
-// @Router   /person/create [post]
 func (delivery *Delivery) CreatePerson(c echo.Context) error {
 
 	var reqPerson dto.ReqCreateUpdatePerson
@@ -84,18 +68,6 @@ func (delivery *Delivery) CreatePerson(c echo.Context) error {
 	return c.JSON(http.StatusOK, pkg.Response{Body: *respPerson})
 }
 
-// GetPerson godoc
-// @Summary      Show a post
-// @Description  Get Person by id. Acl: admin, owner
-// @Tags     	 Person
-// @Accept	 application/json
-// @Produce  application/json
-// @Param id  path int  true  "Person ID"
-// @Success  200 {object} pkg.Response{body=dto.RespPerson} "success get Person"
-// @Failure 405 {object} echo.HTTPError "invalid http method"
-// @Failure 500 {object} echo.HTTPError "internal server error"
-// @Failure 401 {object} echo.HTTPError "no cookie"
-// @Router   /person/{id} [get]
 func (delivery *Delivery) GetPerson(c echo.Context) error {
 	id, err := strconv.ParseUint(c.Param("id"), 10, 64)
 
@@ -121,21 +93,6 @@ func (delivery *Delivery) GetPerson(c echo.Context) error {
 	return c.JSON(http.StatusOK, pkg.Response{Body: *respPerson})
 }
 
-// UpdatePerson godoc
-// @Summary      Update a Person
-// @Description  Update a Person. Acl: owner
-// @Tags     	 Person
-// @Accept	 application/json
-// @Produce  application/json
-// @Param    Person body dto.ReqCreateUpdatePerson true "Person info"
-// @Success  200 {object} pkg.Response{body=dto.RespPerson} "success update Person"
-// @Failure 405 {object} echo.HTTPError "invalid http method"
-// @Failure 400 {object} echo.HTTPError "bad request"
-// @Failure 422 {object} echo.HTTPError "unprocessable entity"
-// @Failure 500 {object} echo.HTTPError "internal server error"
-// @Failure 401 {object} echo.HTTPError "no cookie"
-// @Failure 403 {object} echo.HTTPError "invalid csrf or permission denied"
-// @Router   /person/edit [post]
 func (delivery *Delivery) UpdatePerson(c echo.Context) error {
 
 	var reqPerson dto.ReqCreateUpdatePerson
@@ -172,19 +129,6 @@ func (delivery *Delivery) UpdatePerson(c echo.Context) error {
 	return c.JSON(http.StatusOK, pkg.Response{Body: *respPerson})
 }
 
-// DeletePerson godoc
-// @Summary      Delete an Person
-// @Description  Delete an Person. Acl: owner
-// @Tags     	 Person
-// @Accept	 application/json
-// @Param id path int  true  "Person ID"
-// @Success  204
-// @Failure 405 {object} echo.HTTPError "invalid http method"
-// @Failure 500 {object} echo.HTTPError "internal server error"
-// @Failure 401 {object} echo.HTTPError "no cookie"
-// @Failure 404 {object} echo.HTTPError "can't find Person with such id"
-// @Failure 403 {object} echo.HTTPError "invalid csrf"
-// @Router   /person/{id} [delete]
 func (delivery *Delivery) DeletePerson(c echo.Context) error {
 
 	id, err := strconv.ParseUint(c.Param("id"), 10, 64)

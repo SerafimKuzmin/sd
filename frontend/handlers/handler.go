@@ -63,7 +63,7 @@ func Create(client *http.Client, user *models.User) (*http.Response, error) {
 
 func GetFilmByID(client *http.Client, id uint64) (*http.Response, error) {
 	url := "http://" + address + ":" + port + "/film/"
-	url = fmt.Sprintf("url%d", id)
+	url = fmt.Sprintf("%s%d", url, id)
 
 	request, err := http.NewRequest("GET", url, nil)
 	if err != nil {
@@ -79,7 +79,7 @@ func GetFilmByID(client *http.Client, id uint64) (*http.Response, error) {
 
 func GetFilmByCountry(client *http.Client, id uint64) (*http.Response, error) {
 	url := "http://" + address + ":" + port + "/country/"
-	url = fmt.Sprintf("url%d/films", id)
+	url = fmt.Sprintf("%s%d/films", url, id)
 
 	request, err := http.NewRequest("GET", url, nil)
 	if err != nil {
@@ -95,7 +95,7 @@ func GetFilmByCountry(client *http.Client, id uint64) (*http.Response, error) {
 
 func GetLists(client *http.Client, token string, id uint64) (*http.Response, error) {
 	url := "http://" + address + ":" + port + "/user/"
-	url = fmt.Sprintf("url%d/lists", id)
+	url = fmt.Sprintf("%s%d/lists", url, id)
 
 	request, err := http.NewRequest("GET", url, nil)
 	if err != nil {
@@ -112,7 +112,7 @@ func GetLists(client *http.Client, token string, id uint64) (*http.Response, err
 
 func GetFilmsByList(client *http.Client, token string, id uint64) (*http.Response, error) {
 	url := "http://" + address + ":" + port + "/list/"
-	url = fmt.Sprintf("url%d/films", id)
+	url = fmt.Sprintf("%s%d/films", url, id)
 
 	request, err := http.NewRequest("GET", url, nil)
 	if err != nil {
@@ -168,8 +168,8 @@ func RateFilm(client *http.Client, token string, rate *models.RateFilm) (*http.R
 func AddFilm(client *http.Client, token string, film *models.Film) (*http.Response, error) {
 
 	url := "http://" + address + ":" + port + "/film/create"
-	params := fmt.Sprintf("{\"id\": \"%d\", \"name\": \"%s\", \"description\": \"%s\", \"rate\": \"%f\", \"genre\": \"%s\", \"duration\": \"%d\", \"country_id\": \"%d\"}",
-		film.ID, film.Name, film.Description, film.Rate, film.Genre, film.Duration, film.CountryID)
+	params := fmt.Sprintf("{\"id\": \"%d\", \"name\": \"%s\", \"description\": \"%s\", \"rate\": \"%f\", \"genre\": \"%s\", \"duration\": \"%d\"}",
+		film.ID, film.Name, film.Description, film.Rate, film.Genre, film.Duration)
 	var jsonStr = []byte(params)
 
 	request, err := http.NewRequest("POST", url, bytes.NewBuffer(jsonStr))

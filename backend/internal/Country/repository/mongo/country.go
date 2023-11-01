@@ -2,7 +2,7 @@ package mongo
 
 import (
 	"context"
-	"github.com/SerafimKuzmin/sd/backend/internal/Country/repository"
+	"github.com/SerafimKuzmin/sd/backend/internal/Country/usecase"
 	"github.com/SerafimKuzmin/sd/backend/models"
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/mongo"
@@ -48,7 +48,7 @@ type CountryRepository struct {
 	db *mongo.Database
 }
 
-func NewCountryRepository(db *mongo.Database) repository.RepositoryI {
+func NewCountryRepository(db *mongo.Database) usecase.RepositoryI {
 	return &CountryRepository{
 		db: db,
 	}

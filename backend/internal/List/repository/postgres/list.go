@@ -1,7 +1,7 @@
 package postgres
 
 import (
-	"github.com/SerafimKuzmin/sd/backend/internal/List/repository"
+	"github.com/SerafimKuzmin/sd/backend/internal/List/usecase"
 	"github.com/SerafimKuzmin/sd/backend/models"
 	"time"
 
@@ -11,13 +11,11 @@ import (
 
 type Film struct {
 	ID          uint64    `gorm:"column:id"`
-	Name        string    `gorm:"column:name"`
-	Description string    `gorm:"column:description"`
-	Rate        float64   `gorm:"column:rate"`
-	Genre       string    `gorm:"column:genre"`
-	ReleaseDT   time.Time `gorm:"column:release_dt"`
-	Duration    uint      `gorm:"column:duration"`
-	CountryID   uint64    `gorm:"column:country_id"`
+	Name        string    `gorm:"column:title"`
+	Description string    `gorm:"column:overview"`
+	Rate        float64   `gorm:"column:rating"`
+	ReleaseDT   time.Time `gorm:"column:release_date"`
+	Duration    uint      `gorm:"column:runtime"`
 }
 
 type List struct {
@@ -203,22 +201,22 @@ func (fr listRepository) GetFilmsByList(listID uint64) ([]*models.Film, error) {
 	films := make([]*Film, 0, 10)
 
 	for idx := range listFilmRels {
-		var List Film
-		tx := fr.db.Where(&Film{ID: listFilmRels[idx].FilmID}).Take(&List)
+		var film Film
+		tx := fr.db.Where("id = ?", listFilmRels[idx].FilmID).Find(&film)
 
 		if errors.Is(tx.Error, gorm.ErrRecordNotFound) {
 			return nil, models.ErrNotFound
 		} else if tx.Error != nil {
-			return nil, errors.Wrap(tx.Error, "database error (table List)")
+			return nil, errors.Wrap(tx.Error, "database error (table film)")
 		}
 
-		films = append(films, &List)
+		films = append(films, &film)
 	}
 
 	return toModelFilms(films), nil
 }
 
-func NewlistRepository(db *gorm.DB) repository.RepositoryI {
+func NewlistRepository(db *gorm.DB) usecase.RepositoryI {
 	return &listRepository{
 		db: db,
 	}

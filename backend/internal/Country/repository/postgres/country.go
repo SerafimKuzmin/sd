@@ -1,7 +1,7 @@
 package postgres
 
 import (
-	"github.com/SerafimKuzmin/sd/backend/internal/Country/repository"
+	"github.com/SerafimKuzmin/sd/backend/internal/Country/usecase"
 	"github.com/SerafimKuzmin/sd/backend/models"
 
 	"github.com/pkg/errors"
@@ -93,7 +93,7 @@ func (pr CountryRepository) DeleteCountry(id uint64) error {
 	return nil
 }
 
-func NewCountryRepository(db *gorm.DB) repository.RepositoryI {
+func NewCountryRepository(db *gorm.DB) usecase.RepositoryI {
 	return &CountryRepository{
 		db: db,
 	}

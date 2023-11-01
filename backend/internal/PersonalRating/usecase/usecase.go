@@ -1,7 +1,6 @@
 package usecase
 
 import (
-	PersonalRatingRep "github.com/SerafimKuzmin/sd/backend/internal/PersonalRating/repository"
 	"github.com/SerafimKuzmin/sd/backend/models"
 	"github.com/pkg/errors"
 )
@@ -14,7 +13,7 @@ type UsecaseI interface {
 }
 
 type usecase struct {
-	PersonalRatingRepository PersonalRatingRep.RepositoryI
+	PersonalRatingRepository RepositoryI
 }
 
 func (u *usecase) CreatePersonalRating(t *models.PersonalRating) error {
@@ -76,7 +75,7 @@ func (u *usecase) DeletePersonalRating(id uint64, userID uint64) error {
 	return nil
 }
 
-func New(tRep PersonalRatingRep.RepositoryI) UsecaseI {
+func New(tRep RepositoryI) UsecaseI {
 	return &usecase{
 		PersonalRatingRepository: tRep,
 	}

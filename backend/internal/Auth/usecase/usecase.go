@@ -1,8 +1,7 @@
 package usecase
 
 import (
-	authRep "github.com/SerafimKuzmin/sd/backend/internal/Auth/repository"
-	userRep "github.com/SerafimKuzmin/sd/backend/internal/User/repository"
+	userRep "github.com/SerafimKuzmin/sd/backend/internal/User/usecase"
 	"github.com/SerafimKuzmin/sd/backend/models"
 	"strconv"
 	"time"
@@ -20,7 +19,7 @@ type UsecaseI interface {
 }
 
 type usecase struct {
-	authRepository authRep.RepositoryI
+	authRepository RepositoryI
 	userRepository userRep.RepositoryI
 }
 
@@ -124,7 +123,7 @@ func (u usecase) DeleteCookie(value string) error {
 	return nil
 }
 
-func New(uRep userRep.RepositoryI, aRep authRep.RepositoryI) UsecaseI {
+func New(uRep userRep.RepositoryI, aRep RepositoryI) UsecaseI {
 	return &usecase{
 		userRepository: uRep,
 		authRepository: aRep,

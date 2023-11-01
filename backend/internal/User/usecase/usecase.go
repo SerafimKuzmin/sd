@@ -1,7 +1,6 @@
 package usecase
 
 import (
-	userRep "github.com/SerafimKuzmin/sd/backend/internal/User/repository"
 	"github.com/SerafimKuzmin/sd/backend/models"
 
 	"github.com/pkg/errors"
@@ -15,7 +14,7 @@ type UsecaseI interface {
 }
 
 type usecase struct {
-	userRepository userRep.RepositoryI
+	userRepository RepositoryI
 }
 
 func (u *usecase) UpdateUser(user *models.User) error {
@@ -59,7 +58,7 @@ func (u *usecase) GetUsers() ([]*models.User, error) {
 	return users, nil
 }
 
-func New(uRep userRep.RepositoryI) UsecaseI {
+func New(uRep RepositoryI) UsecaseI {
 	return &usecase{
 		userRepository: uRep,
 	}

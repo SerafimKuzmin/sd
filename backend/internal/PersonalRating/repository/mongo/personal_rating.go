@@ -2,7 +2,7 @@ package mongo
 
 import (
 	"context"
-	"github.com/SerafimKuzmin/sd/backend/internal/PersonalRating/repository"
+	"github.com/SerafimKuzmin/sd/backend/internal/PersonalRating/usecase"
 	"github.com/SerafimKuzmin/sd/backend/models"
 	"github.com/pkg/errors"
 	"go.mongodb.org/mongo-driver/bson"
@@ -34,7 +34,7 @@ type PersonalRatingRepository struct {
 	db *mongo.Database
 }
 
-func NewPersonalRatingRepository(db *mongo.Database) repository.RepositoryI {
+func NewPersonalRatingRepository(db *mongo.Database) usecase.RepositoryI {
 	return &PersonalRatingRepository{
 		db: db,
 	}

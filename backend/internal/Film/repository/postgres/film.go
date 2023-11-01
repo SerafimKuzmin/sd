@@ -1,7 +1,7 @@
 package postgres
 
 import (
-	"github.com/SerafimKuzmin/sd/backend/internal/Film/repository"
+	"github.com/SerafimKuzmin/sd/backend/internal/Film/usecase"
 	"github.com/SerafimKuzmin/sd/backend/models"
 	"github.com/pkg/errors"
 	"gorm.io/gorm"
@@ -9,14 +9,12 @@ import (
 )
 
 type Film struct {
-	ID          uint64  `gorm:"column:id"`
-	Name        string  `gorm:"column:title"`
-	Description string  `gorm:"column:overview"`
-	Rate        float64 `gorm:"column:rating"`
-	//Genre       string    `gorm:"column:genre"`
-	ReleaseDT time.Time `gorm:"column:release_date"`
-	Duration  uint      `gorm:"column:runtime"`
-	//CountryID uint64    `gorm:"column:country_id"`
+	ID          uint64    `gorm:"column:id"`
+	Name        string    `gorm:"column:title"`
+	Description string    `gorm:"column:overview"`
+	Rate        float64   `gorm:"column:rating"`
+	ReleaseDT   time.Time `gorm:"column:release_date"`
+	Duration    uint      `gorm:"column:runtime"`
 }
 
 func (Film) TableName() string {
@@ -182,7 +180,7 @@ func (gr FilmRepository) GetFilmByCountry(id uint64) ([]*models.Film, error) {
 	return toModelFilms(films), nil
 }
 
-func NewFilmRepository(db *gorm.DB) repository.RepositoryI {
+func NewFilmRepository(db *gorm.DB) usecase.RepositoryI {
 	return &FilmRepository{
 		db: db,
 	}

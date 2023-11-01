@@ -2,7 +2,7 @@ package postgres
 
 import (
 	"fmt"
-	"github.com/SerafimKuzmin/sd/backend/internal/User/repository"
+	"github.com/SerafimKuzmin/sd/backend/internal/User/usecase"
 	"github.com/SerafimKuzmin/sd/backend/models"
 	"github.com/pkg/errors"
 	"gorm.io/gorm"
@@ -140,7 +140,7 @@ func (ur userRepository) GetUserByEmail(email string) (*models.User, error) {
 	return toModelUser(&user), nil
 }
 
-func NewUserRepository(db *gorm.DB) repository.RepositoryI {
+func NewUserRepository(db *gorm.DB) usecase.RepositoryI {
 	return &userRepository{
 		db: db,
 	}

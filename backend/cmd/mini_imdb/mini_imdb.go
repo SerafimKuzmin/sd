@@ -121,8 +121,8 @@ func (mi MiniIMDB) Run(sessionDB string) error {
 	}))
 
 	e.Use(echoMiddleware.Recover())
-	authMiddleware := middleware.NewMiddleware(authUC)
-	e.Use(authMiddleware.Auth)
+	//authMiddleware := middleware.NewMiddleware(authUC)
+	//e.Use(authMiddleware.Auth)
 
 	httpServer := mi.Server.Init(e)
 	server := Server{*httpServer}

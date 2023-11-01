@@ -1,7 +1,7 @@
 package postgres
 
 import (
-	"github.com/SerafimKuzmin/sd/backend/internal/Person/repository"
+	"github.com/SerafimKuzmin/sd/backend/internal/Person/usecase"
 	"github.com/SerafimKuzmin/sd/backend/models"
 
 	"github.com/pkg/errors"
@@ -93,7 +93,7 @@ func (pr PersonRepository) DeletePerson(id uint64) error {
 	return nil
 }
 
-func NewPersonRepository(db *gorm.DB) repository.RepositoryI {
+func NewPersonRepository(db *gorm.DB) usecase.RepositoryI {
 	return &PersonRepository{
 		db: db,
 	}

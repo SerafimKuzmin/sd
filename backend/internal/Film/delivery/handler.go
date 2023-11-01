@@ -32,22 +32,6 @@ func (del *Delivery) ownerOrAdminValidate(c echo.Context) error {
 	return models.ErrPermissionDenied
 }
 
-// CreateFilm godoc
-// @Summary      Create Film
-// @Description  Create Film
-// @Tags     	 Film
-// @Accept	 application/json
-// @Produce  application/json
-// @Param    Film body dto.ReqCreateUpdateFilm true "Film info"
-// @Success  200 {object} pkg.Response{body=dto.RespFilm} "success update Film"
-// @Failure 405 {object} echo.HTTPError "invalid http method"
-// @Failure 400 {object} echo.HTTPError "bad request"
-// @Failure 422 {object} echo.HTTPError "unprocessable entity"
-// @Failure 500 {object} echo.HTTPError "internal server error"
-// @Failure 401 {object} echo.HTTPError "no cookie"
-// @Failure 400 {object} echo.HTTPError "bad req"
-// @Failure 403 {object} echo.HTTPError "invalid csrf or permission denied"
-// @Router   /film/create [post]
 func (delivery *Delivery) CreateFilm(c echo.Context) error {
 
 	var reqFilm dto.ReqCreateUpdateFilm
@@ -83,18 +67,6 @@ func (delivery *Delivery) CreateFilm(c echo.Context) error {
 	return c.JSON(http.StatusOK, pkg.Response{Body: *respFilm})
 }
 
-// GetFilm godoc
-// @Summary      Show a post
-// @Description  Get Film by id. Acl: admin, owner
-// @Tags     	 Film
-// @Accept	 application/json
-// @Produce  application/json
-// @Param id  path int  true  "Film ID"
-// @Success  200 {object} pkg.Response{body=dto.RespFilm} "success get Film"
-// @Failure 405 {object} echo.HTTPError "invalid http method"
-// @Failure 500 {object} echo.HTTPError "internal server error"
-// @Failure 401 {object} echo.HTTPError "no cookie"
-// @Router   /film/{id} [get]
 func (delivery *Delivery) GetFilm(c echo.Context) error {
 	id, err := strconv.ParseUint(c.Param("id"), 10, 64)
 
@@ -113,21 +85,6 @@ func (delivery *Delivery) GetFilm(c echo.Context) error {
 	return c.JSON(http.StatusOK, pkg.Response{Body: *respFilm})
 }
 
-// UpdateFilm godoc
-// @Summary      Update a Film
-// @Description  Update a Film. Acl: owner only
-// @Tags     	 Film
-// @Accept	 application/json
-// @Produce  application/json
-// @Param    Film body dto.ReqCreateUpdateFilm true "Film info"
-// @Success  200 {object} pkg.Response{body=dto.RespFilm} "success update Film"
-// @Failure 405 {object} echo.HTTPError "invalid http method"
-// @Failure 400 {object} echo.HTTPError "bad request"
-// @Failure 422 {object} echo.HTTPError "unprocessable entity"
-// @Failure 500 {object} echo.HTTPError "internal server error"
-// @Failure 401 {object} echo.HTTPError "no cookie"
-// @Failure 403 {object} echo.HTTPError "invalid csrf or permission denied"
-// @Router   /film/edit [post]
 func (delivery *Delivery) UpdateFilm(c echo.Context) error {
 
 	var reqFilm dto.ReqCreateUpdateFilm
@@ -169,19 +126,6 @@ func (delivery *Delivery) UpdateFilm(c echo.Context) error {
 	return c.JSON(http.StatusOK, pkg.Response{Body: *respFilm})
 }
 
-// DeleteFilm godoc
-// @Summary      Delete a Film. Acl: owner only
-// @Description  Delete a Film
-// @Tags     	 Film
-// @Accept	 application/json
-// @Param id path int  true  "Film ID"
-// @Success  204
-// @Failure 405 {object} echo.HTTPError "invalid http method"
-// @Failure 500 {object} echo.HTTPError "internal server error"
-// @Failure 401 {object} echo.HTTPError "no cookie"
-// @Failure 404 {object} echo.HTTPError "can't find Film with such id"
-// @Failure 403 {object} echo.HTTPError "invalid csrf"
-// @Router   /film/{id} [delete]
 func (delivery *Delivery) DeleteFilm(c echo.Context) error {
 
 	id, err := strconv.ParseUint(c.Param("id"), 10, 64)
@@ -207,18 +151,6 @@ func (delivery *Delivery) DeleteFilm(c echo.Context) error {
 	return c.NoContent(http.StatusNoContent)
 }
 
-// GetFilmByPerson godoc
-// @Summary      Get user lists
-// @Description  Get user lists.
-// @lists     tag
-// @Produce  application/json
-// @Param        day    query     string  false  "day for events"
-// @Success  200 {object} pkg.Response{body=[]dto.RespTag} "success get lists"
-// @Failure 405 {object} echo.HTTPError "Method Not Allowed"
-// @Failure 400 {object} echo.HTTPError "bad request"
-// @Failure 500 {object} echo.HTTPError "internal server error"
-// @Failure 401 {object} echo.HTTPError "no cookie"
-// @Router   /person/{person_id}/films [get]
 func (delivery *Delivery) GetFilmByPerson(c echo.Context) error {
 	id, err := strconv.ParseUint(c.Param("id"), 10, 64)
 
@@ -239,18 +171,6 @@ func (delivery *Delivery) GetFilmByPerson(c echo.Context) error {
 	return c.JSON(http.StatusOK, pkg.Response{Body: resplists})
 }
 
-// GetFilmByCountry godoc
-// @Summary      Get user lists
-// @Description  Get user lists.
-// @lists     tag
-// @Produce  application/json
-// @Param        day    query     string  false  "day for events"
-// @Success  200 {object} pkg.Response{body=[]dto.RespT} "success get lists"
-// @Failure 405 {object} echo.HTTPError "Method Not Allowed"
-// @Failure 400 {object} echo.HTTPError "bad request"
-// @Failure 500 {object} echo.HTTPError "internal server error"
-// @Failure 401 {object} echo.HTTPError "no cookie"
-// @Router   /country/{country_id}/films [get]
 func (delivery *Delivery) GetFilmByCountry(c echo.Context) error {
 	id, err := strconv.ParseUint(c.Param("id"), 10, 64)
 

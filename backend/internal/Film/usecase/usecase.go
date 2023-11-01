@@ -1,7 +1,6 @@
 package usecase
 
 import (
-	FilmRep "github.com/SerafimKuzmin/sd/backend/internal/Film/repository"
 	"github.com/SerafimKuzmin/sd/backend/models"
 	"github.com/pkg/errors"
 )
@@ -16,10 +15,10 @@ type UsecaseI interface {
 }
 
 type usecase struct {
-	filmRepository FilmRep.RepositoryI
+	filmRepository RepositoryI
 }
 
-func New(gRep FilmRep.RepositoryI) UsecaseI {
+func New(gRep RepositoryI) UsecaseI {
 	return &usecase{
 		filmRepository: gRep,
 	}
